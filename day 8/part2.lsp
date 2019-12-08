@@ -1,0 +1,23 @@
+(with-open-file (input-stream "input")
+    (let* (
+            (n (* 25 6))
+            (result (make-string n))
+            (input (make-string n))
+        )
+        (read-sequence result input-stream)
+        (loop
+            (when (> n (read-sequence input input-stream)) (return))
+            (loop for i below n do
+                (when (char= #\2 (aref result i)) (setf (aref result i) (aref input i)))
+            )
+        )
+        (nsubstitute #\Space #\0 result)
+        (nsubstitute #\# #\1 result)
+        (print (subseq result 0 25))
+        (print (subseq result 25 50))
+        (print (subseq result 50 75))
+        (print (subseq result 75 100))
+        (print (subseq result 100 125))
+        (print (subseq result 125 150))
+    )
+)
